@@ -1,0 +1,118 @@
+.data{
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 24px;
+  margin-top: 24px;
+  width: 100%;
+  color: var(--dark);
+  > div {
+    border-radius: 20px;
+    background: var(--light);
+    padding: 24px;
+    overflow-x: auto;
+
+    .header {
+      display: flex;
+      align-items: center;
+      grid-gap: 16px;
+      margin-bottom: 24px;
+
+      h3{
+        margin-right: auto;
+        font-size: 24px;
+        font-weight: 600;
+      }
+      bx{
+        cursor: pointer;
+      }
+    }
+
+  }
+  .recents{
+    flex-grow: 1;
+    flex-basis: 500px;
+    table{
+      width: 100%;
+      border-collapse: collapse;
+      th{
+        padding-bottom: 12px;
+        font-size: 13px;
+        text-align: left;
+        border-bottom: 1px solid var(--grey);
+      }
+      td{
+        padding: 16px 0;
+
+        &:first-child {
+          display: flex;
+          align-items: center;
+          grid-gap: 12px;
+          padding-left: 6px;
+
+          .img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+        }
+        .status{
+          font-size: 10px;
+          padding: 6px 16px;
+          color: var(--light);
+          border-radius: 20px;
+          font-weight: 700;
+        }
+        .completed{
+          background: var(--success);
+        }
+        .process{
+          background: var(--primary);
+        }
+        .pending{
+          background: var(--warning);
+        }
+      }
+      tr{
+        cursor: pointer;
+        transition: all 0.3s ease;
+        &:hover{
+          background: var(--grey);
+        }
+      }
+    }
+  }
+  .reminders{
+    flex-grow: 1;
+    flex-basis: 300px;
+    .task-list{
+      width: 100%;
+      li{
+        width: 100%;
+        margin-bottom: 16px;
+        background: var(--grey);
+        padding: 14px 10px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .task-title{
+          display: flex;
+          align-items: center;
+          p{
+            margin-left: 6px;
+          }
+        }
+        .bx{
+          cursor: pointer;
+        }
+      }
+      .completed{
+        border-left: 10px solid var(--success);
+      }
+      .not-completed{
+        border-left: 10px solid var(--danger);
+      }
+    }
+  }
+}

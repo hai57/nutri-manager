@@ -1,3 +1,4 @@
+import { BiLogOutCircle, BiSolidDashboard, BiCog, BiGroup } from "react-icons/bi";
 export const SideBar = () => {
     return (
         <div className="sidebar">
@@ -6,13 +7,14 @@ export const SideBar = () => {
                 <div className="logo-name"><span>Asmr</span>Prog</div>
             </a>
             <ul className="side-menu">
-                <li><a href="#"><i className='bx bxs-dashboard'></i>Dashboard</a></li>
-                <li><a href="#"><i className='bx bx-cog'></i>Settings</a></li>
+                <li className="active"><a href="#"><BiSolidDashboard className="bx" />Dashboard</a></li>
+                <li ><a href="#"><BiGroup className="bx" />Users</a></li>
+                <li><a href="#"><BiCog className="bx" />Settings</a></li>
             </ul>
-            <ul className="side-menu">
+            <ul className="side-menu bottom">
                 <li>
                     <a href="#" className="logout">
-                        <i className='bx bx-log-out-circle'></i>
+                        <BiLogOutCircle className="bx"></BiLogOutCircle>
                         Logout
                     </a>
                 </li>
