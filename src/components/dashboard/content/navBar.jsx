@@ -1,13 +1,12 @@
 import { BiMenu, BiSearch, BiBell, BiUser } from 'react-icons/bi'
 import PropTypes from 'prop-types';
 
-export const NavBar = ({isDarkMode, handleThemeToggle}) => {
+export const NavBar = ({ isDarkMode, handleThemeToggle }) => {
   NavBar.propTypes = {
     isDarkMode: PropTypes.bool.isRequired,
     handleThemeToggle: PropTypes.func.isRequired,
   };
   return (
-
     <nav>
       <BiMenu className='bx bx-menu' />
       <form action="#">
@@ -18,7 +17,7 @@ export const NavBar = ({isDarkMode, handleThemeToggle}) => {
           </button>
         </div>
       </form>
-      <input type="checkbox" id="theme-toggle" hidden checked={isDarkMode} onChange={handleThemeToggle}  />
+      <input type="checkbox" id="theme-toggle" hidden checked={isDarkMode} onChange={handleThemeToggle} />
       <label htmlFor="theme-toggle" className="theme-toggle"></label>
       <a href="#" className="notif">
         <BiBell className='bx'></BiBell>
