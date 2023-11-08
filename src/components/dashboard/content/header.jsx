@@ -1,14 +1,14 @@
 export const Header = () => {
   return (
-    <div class="header">
-      <div class="left">
+    <div className="header">
+      <div className="left">
         <h1>Dashboard</h1>
-        <ul class="breadcrumb">
+        <ul className="breadcrumb">
           <li><a href="#">
             Dash Board
           </a></li>
           /
-          <li><a href="#" class="active">Users</a></li>
+          <li><a href="#" className="active">Users</a></li>
         </ul>
       </div>
     </div>

@@ -1,4 +1,3 @@
-import { BiLogoGoogle } from 'react-icons/bi'
 export const SignUp = () => {
   return (
     <div className="form-container sign-up" >
@@ -9,6 +8,6 @@ export const SignUp = () => {
         <input type="password" placeholder="Password" />
         <button>Sign Up</button>
       </form>
-    </div >
+    </div>
   )
 }

@@ -1,24 +1,27 @@
-import { BiMenu, BiSearch, BiBell, BiUser } from 'react-icons/bi'
-import PropTypes from 'prop-types';
+import { BiBell, BiUser } from 'react-icons/bi'
+import { useDispatch, useSelector } from 'react-redux';
 
-export const NavBar = ({ isDarkMode, handleThemeToggle }) => {
-  NavBar.propTypes = {
-    isDarkMode: PropTypes.bool.isRequired,
-    handleThemeToggle: PropTypes.func.isRequired,
-  };
+import { switchMode } from "@/store/actions/darkmodeAction";
+
+
+export const NavBar = () => {
+
+
+  const { mode } = useSelector(state => state.darkmodeAction)
+
+  const dispatch = useDispatch()
+
+  const handleThemeToggle = () => {
+    dispatch(switchMode(mode == 'dark' ? 'light' : 'dark'))
+  }
   return (
     <nav>
-      <BiMenu className='bx bx-menu' />
       <form action="#">
         <div className="form-input">
           <input type="search" placeholder="Search..." />
-          <button className="search-btn" type="submit">
-            <BiSearch className='bx'></BiSearch>
-          </button>
         </div>
       </form>
-      <input type="checkbox" id="theme-toggle" hidden checked={isDarkMode} onChange={handleThemeToggle} />
-      <label htmlFor="theme-toggle" className="theme-toggle"></label>
+      <button className={`theme-toggle ${mode === 'dark' ? 'dark' : 'light'}` }type='button' onClick={handleThemeToggle}></button>
       <a href="#" className="notif">
         <BiBell className='bx'></BiBell>
         <span className="count">12</span>

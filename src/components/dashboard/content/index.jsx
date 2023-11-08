@@ -1,37 +1,15 @@
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
 import { NavBar } from "./navBar";
 import { Header } from "./header"
 import { Data } from "./data";
 
 export const ContentWrapper = () => {
-  const [isDarkMode, setDarkMode] = useState(false);
+  const { mode } = useSelector(state => state.darkmodeAction)
 
-  useEffect(() => {
-    const toggler = document.getElementById('theme-toggle');
-
-    const handleThemeChange = () => {
-      if (toggler.checked) {
-        document.body.classList.add('dark');
-        setDarkMode(true);
-      } else {
-        document.body.classList.remove('dark');
-        setDarkMode(false);
-      }
-    };
-
-    toggler.addEventListener('change', handleThemeChange);
-
-
-    return () => {
-      toggler.removeEventListener('change', handleThemeChange);
-    };
-  }, []);
-  const handleThemeToggle = () => {
-    setDarkMode(!isDarkMode);
-  };
   return (
     <div className='content'>
-      <NavBar isDarkMode={isDarkMode} handleThemeToggle={handleThemeToggle} />
+      <NavBar isDarkMode={mode == 'dark'} />
       <main>
         <Header />
         <Data />
