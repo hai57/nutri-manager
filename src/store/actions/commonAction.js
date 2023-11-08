@@ -3,7 +3,11 @@ import { createSlice } from '@reduxjs/toolkit'
 export const counterAction = createSlice({
   name: 'counter',
   initialState: {
-    value: 0
+    value: 0,
+    authorize: false,
+    user: {
+      
+    }
   },
   reducers: {
     increment: state => {

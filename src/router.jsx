@@ -1,6 +1,7 @@
 import { lazy } from 'react'
 const LoginPage = lazy(() => import('@/pages/login'))
 const DashboardPage = lazy(() => import('@/pages/dashboard'))
+const PrivatePage = lazy(() => import('@/pages/private'))
 
 const routes = () => [
   {
@@ -12,7 +13,7 @@ const routes = () => [
   },
   {
     path: `/dashboard`,
-    element: <DashboardPage />,
+    element: <PrivatePage><DashboardPage /></PrivatePage>,
   },
 ]
 
