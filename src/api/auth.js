@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import axios from 'axios'
-import { useApiCMS, onRequestFulfilled, onRequestRejected, onFulfilled, onRejected } from '@/apis'
+import { useApiCMS, onRequestFulfilled, onRequestRejected, onFulfilled, onRejected } from '@/api'
 
 const publicApi = useApiCMS(false)
 const privateApi = useApiCMS(true)
@@ -14,5 +14,5 @@ authServicePrivate.interceptors.response.use(onFulfilled, onRejected)
 
 export const authServiceApi = {
   login: (p) => authServicePublic.post('/user/login', p),
-  logout: () => authServicePublic.get('/user/getAllUser'),
+  // logout: () => authServicePublic.get('/user/getAllUser'),
 }

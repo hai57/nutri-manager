@@ -1,40 +1,64 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { BiUser, BiReceipt, BiSearch, BiPlus, BiX } from 'react-icons/bi';
 
-import { BiUser, BiReceipt, BiFilter, BiSearch, BiNote, BiPlus, BiCheckCircle, BiDotsVerticalRounded, BiXCircle } from 'react-icons/bi';
-import { useNavigate } from 'react-router-dom';
+import { userServiceApi } from '@/api/user';
+import CreateUserForm from './formUser'
+
 
 export const Data = () => {
   const [userData, setUserData] = useState([]);
-  const navigate = useNavigate();
+  const [showCreateUserForm, setShowCreateUserForm] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://node-mongodb-api-datn.onrender.com/v1/api/user/getAllUser', {
-          headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
-          }
-        });
-        setUserData(response.data.usersWithRoles);
+        const response = await userServiceApi.getAllUser();
+        setUserData(response.usersWithRoles);
       } catch (error) {
-        if (error.response.status === 401) {
-          navigate('/login');
-          console.error('Unauthorized: Token expired, logging in again...');
-        } else {
-          console.error('Error fetching data:', error);
-        }
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
+
+  const handleUserCreated = (newUser) => {
+    setUserData((prevData) => [...prevData, newUser]);
+  };
+
+  const handleToggleCreateUserForm = () => {
+    setShowCreateUserForm((prev) => !prev);
+  };
+
+  const handleDeleteUser = async (userId) => {
+    try {
+      console.log(userId);
+      const response = await userServiceApi.deleteUser({ userId });
+      if (response.status === 200) {
+        console.log("User deleted successfully:", response.data);
+        setUserData((prevData) => prevData.filter((user) => user.id !== userId));
+      } else {
+        console.error('Error deleting user. Response:', response);
+      }
+    } catch (error) {
+      console.error('Error deleting user:', error);
+    }
+  };
+
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="data">
-      <div className="recents">
+      <div className="recents container">
         <div className="header">
           <BiReceipt className='bx ' />
           <h3>Recent</h3>
-          <BiFilter className='bx ' />
+          <BiPlus className='bx ' onClick={handleToggleCreateUserForm} />
           <BiSearch className='bx ' />
         </div>
         <table>
@@ -51,19 +75,28 @@ export const Data = () => {
               <tr key={index}>
                 <td>
                   <BiUser className='bx img' />
-                  <p>{user.name}</p>
+                  <p>{user && user.name}</p>
                 </td>
-                <td>{user.age}</td>
-                <td>{user.gmail}</td>
-                <td>{user.address}</td>
+                <td>{user && user.age}</td>
+                <td>{user && user.gmail}</td>
+                <td>{user && user.address}</td>
                 {/* <td><span className="status pending">Pending</span></td> */}
+                <td>
+                  <BiX className='bx img' onClick={() => handleDeleteUser(user._id)} />
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      {showCreateUserForm && (
+        <CreateUserForm
+          onClose={handleToggleCreateUserForm}
+          onUserCreated={handleUserCreated}
+        />
+      )}
 
-      <div className="reminders">
+      {/* <div className="reminders">
         <div className="header">
           <BiNote className='bx ' />
           <h3>Remiders</h3>
@@ -93,7 +126,7 @@ export const Data = () => {
             <BiDotsVerticalRounded className='bx ' />
           </li>
         </ul>
-      </div>
+      </div> */}
 
     </div>
   );

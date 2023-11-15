@@ -5,10 +5,7 @@ const PrivatePage = lazy(() => import('@/pages/private'))
 
 const routes = () => [
   {
-    path: ''
-  },
-  {
-    path: `/login`,
+    path: '/',
     element: <LoginPage />,
   },
   {

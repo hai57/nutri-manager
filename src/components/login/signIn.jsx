@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authServiceApi } from "@/apis/auth";
+
+import { authServiceApi } from "@/api/auth";
 import { storage } from "@/utils/storage";
 
 export const SignIn = () => {
-  const navigate = useNavigate();
   const [gmail, setGmail] = useState('');
   const [password, setPassword] = useState('')
+  const navigate = useNavigate();
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -16,6 +17,7 @@ export const SignIn = () => {
     })
     .then(res => {
       storage.set('token', res);
+      navigate('/dashboard')
     })
   }
   return (

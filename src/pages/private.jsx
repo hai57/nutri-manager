@@ -3,18 +3,18 @@ import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { storage } from "@/utils/storage"
-import { getUser } from "@/hooks/getUser"
+import { getAllUser } from "@/hooks/getAllUser"
 
-const PrivatePage = ({children}) => {
+const PrivatePage = ({ children }) => {
   let token = storage.get('token')
   const navigator = useNavigate()
-  getUser()
+  getAllUser()
   useEffect(() => {
     if (!token) navigator('/login')
   }, [navigator, token])
 
   if (!token) return null
-  return <ddiv>{children}</ddiv>
+  return <div>{children}</div>
 }
 
 export default PrivatePage
