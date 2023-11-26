@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 import { authServiceApi } from "@/api/auth";
 import { storage } from "@/utils/storage";
@@ -15,10 +17,15 @@ export const SignIn = () => {
       gmail: gmail,
       password: password
     })
-    .then(res => {
-      storage.set('token', res);
-      navigate('/dashboard')
-    })
+      .then(res => {
+        const { userId, token } = res;
+        storage.set('userId', userId);
+        storage.set('token', token);
+        navigate('/dashboard')
+      })
+      .catch(error => {
+        toast.error("Invalid email or password");
+      });
   }
   return (
     <div className="form-container sign-in">
@@ -29,6 +36,7 @@ export const SignIn = () => {
         <a href="#">Forget Your Password?</a>
         <button type="submit">Sign In</button>
       </form>
+      <ToastContainer />
     </div>
 
   )

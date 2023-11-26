@@ -1,11 +1,12 @@
-.data{
+.data {
   display: flex;
   flex-wrap: wrap;
   grid-gap: 24px;
   margin-top: 24px;
   width: 100%;
   color: var(--dark);
-  > .container {
+
+  >.container {
     border-radius: 20px;
     background: var(--light);
     padding: 24px;
@@ -17,30 +18,40 @@
       grid-gap: 16px;
       margin-bottom: 24px;
 
-      h3{
+      h3 {
         margin-right: auto;
         font-size: 24px;
         font-weight: 600;
       }
-      bx{
+
+      .bx {
         cursor: pointer;
       }
     }
 
   }
-  .recents{
+
+  .recents {
     flex-grow: 1;
     flex-basis: 500px;
-    table{
+    margin-bottom: 20px;
+
+    table {
       width: 100%;
       border-collapse: collapse;
-      th{
+
+      .fl-right {
+        float: right;
+      }
+
+      th {
         padding-bottom: 12px;
-        font-size: 13px;
+        font-size: 20px;
         text-align: left;
         border-bottom: 1px solid var(--grey);
       }
-      td{
+
+      td {
         padding: 16px 0;
 
         &:first-child {
@@ -56,63 +67,55 @@
             object-fit: cover;
           }
         }
-        .status{
+
+        .status {
           font-size: 10px;
           padding: 6px 16px;
           color: var(--light);
           border-radius: 20px;
           font-weight: 700;
         }
-        .completed{
+
+        .completed {
           background: var(--success);
         }
-        .process{
+
+        .process {
           background: var(--primary);
         }
-        .pending{
+
+        .pending {
           background: var(--warning);
         }
       }
-      tr{
+
+      tr {
         cursor: pointer;
         transition: all 0.3s ease;
-        &:hover{
+
+        &:hover {
           background: var(--grey);
         }
       }
     }
+
+
   }
-  .reminders{
-    flex-grow: 1;
-    flex-basis: 300px;
-    .task-list{
-      width: 100%;
-      li{
-        width: 100%;
-        margin-bottom: 16px;
-        background: var(--grey);
-        padding: 14px 10px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .task-title{
-          display: flex;
-          align-items: center;
-          p{
-            margin-left: 6px;
-          }
-        }
-        .bx{
-          cursor: pointer;
-        }
-      }
-      .completed{
-        border-left: 10px solid var(--success);
-      }
-      .not-completed{
-        border-left: 10px solid var(--danger);
-      }
+}
+
+.pos-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    padding: 0 10px;
+  }
+
+  .bx {
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 }

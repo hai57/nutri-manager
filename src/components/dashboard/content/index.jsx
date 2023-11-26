@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 import { NavBar } from "./navBar";
 import { Header } from "./header"
-import { Data } from "./data";
+import { Outlet } from "react-router-dom";
 
 export const ContentWrapper = () => {
   const { mode } = useSelector(state => state.darkmodeAction)
@@ -12,7 +12,7 @@ export const ContentWrapper = () => {
       <NavBar isDarkMode={mode == 'dark'} />
       <main>
         <Header />
-        <Data />
+        <Outlet />
       </main>
     </div>
   );

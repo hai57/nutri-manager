@@ -1,5 +1,17 @@
-import { BiLogOutCircle, BiSolidDashboard, BiCog, BiGroup } from "react-icons/bi";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+
+import { BiLogOutCircle, BiCog, BiGroup, BiListCheck } from "react-icons/bi";
+
 export const SideBar = () => {
+    const [activeItem, setActiveItem] = useState('/dashboard/users');
+    const location = useLocation();
+
+    useEffect(() => {
+        // Khi thay đổi địa chỉ URL, cập nhật activeItem
+        setActiveItem(location.pathname);
+    }, [location.pathname]);
+
     return (
         <div className="sidebar">
             <a href="#" className="logo">
@@ -7,8 +19,18 @@ export const SideBar = () => {
                 <div className="logo-name"><span>Asmr</span>Prog</div>
             </a>
             <ul className="side-menu">
-                <li className="active"><a href="#"><BiSolidDashboard className="bx" />Dashboard</a></li>
-                <li ><a href="#"><BiGroup className="bx" />Users</a></li>
+                <li  className={activeItem === '/dashboard/users' ? 'active' : ''}>
+                    <a href="/dashboard/users" >
+                        <BiGroup className="bx" />
+                        Users
+                    </a>
+                </li>
+                <li className={activeItem === '/dashboard/activities' ? 'active' : ''}>
+                    <a href="/dashboard/activities" >
+                        <BiListCheck className="bx" />
+                        Activities
+                    </a>
+                    </li>
                 <li><a href="#"><BiCog className="bx" />Settings</a></li>
             </ul>
             <ul className="side-menu bottom">

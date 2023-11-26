@@ -1,54 +1,69 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BiX, BiPlus } from 'react-icons/bi';
 
 import { userServiceApi } from '@/api/user';
 
 // eslint-disable-next-line react/prop-types
-const CreateUserForm = ({ onClose, onUserCreated }) => {
+const UserForm = ({ onClose, onUserCreated, onUserUpdated, userDataToUpdate }) => {
   const [newUser, setNewUser] = useState({
     name: '',
     age: '',
     gmail: '',
     address: '',
-    password: '',
-    role: ''
+    password: ''
   });
+  useEffect(() => {
+    if (userDataToUpdate) {
+      setNewUser(userDataToUpdate);
+    }
+  }, [userDataToUpdate]);
 
-  const createUserAction = async () => {
+  const userAction = async () => {
     try {
-      const response = await userServiceApi.createUser(newUser);
-      console.log("User created successfully:", response);
-      if (response && response.user) {
-        onUserCreated(response.user);
+      const response = userDataToUpdate
+        ? await userServiceApi.updateUser(newUser)
+        : await userServiceApi.createUser(newUser);
+
+      console.log(`User ${userDataToUpdate ? 'updated' : 'created'} successfully:`, response);
+
+      if (response.message === "Request Accepted" || response.message === "Created Success" ) {
+        console.log(response)
+        console.log(response.user);
+        if (userDataToUpdate) {
+          onUserUpdated(response.user);
+        } else {
+          onUserCreated(response.user);
+        }
+
         setNewUser({
           name: '',
           age: '',
           gmail: '',
           address: '',
           password: '',
-          role: ''
         });
+
         onClose();
       } else {
-        console.error("Error creating user: Invalid response format");
+        console.error(`Error ${userDataToUpdate ? 'updating' : 'creating'} user: Invalid response format`);
       }
     } catch (error) {
-      console.error("Error creating user:", error);
+      console.error(error);
     }
   };
+
   const handleFieldChange = (fieldName, value) => {
     setNewUser({
       ...newUser,
       [fieldName]: value,
     });
   };
-
   return (
     <div className="popup-overlay">
       <div className="popup">
         <BiX onClick={onClose} className='bx end' />
         <div className="header">
-          <h3>CREATE NEW USER</h3>
+          <h3>{userDataToUpdate ? 'UPDATE USER' : 'CREATE NEW USER'}</h3>
         </div>
         <form>
           <div className='fl_left'>
@@ -91,11 +106,11 @@ const CreateUserForm = ({ onClose, onUserCreated }) => {
             />
           </div>
         </form>
-        <BiPlus onClick={createUserAction} className='bx end' />
+        <BiPlus onClick={userAction} className='bx end' />
       </div>
     </div>
 
   );
 };
 
-export default CreateUserForm;
+export default UserForm;

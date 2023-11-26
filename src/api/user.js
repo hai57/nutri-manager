@@ -3,16 +3,14 @@ import axios from 'axios'
 import { useApiCMS, onRequestFulfilled, onRequestRejected, onFulfilled, onRejected } from '@/api'
 
 const privateApi = useApiCMS(true)
-const publicApi = useApiCMS(true)
 const userServicePrivate = axios.create(privateApi)
-const userServicePublic = axios.create(publicApi)
 
 userServicePrivate.interceptors.request.use(onRequestFulfilled, onRequestRejected)
 userServicePrivate.interceptors.response.use(onFulfilled, onRejected)
-userServicePublic.interceptors.request.use(onRequestFulfilled, onRequestRejected)
-userServicePublic.interceptors.response.use(onFulfilled, onRejected)
+
 export const userServiceApi = {
-  getAllUser: () => userServicePrivate.get('/user/getAllUser'),
-  createUser: (p) => userServicePublic.post('/user/createUser',p),
-  deleteUser: (p) => userServicePrivate.delete('/user/deleteUser',p)
+  getAllUser: (offset, limit) => userServicePrivate.get(`/user/getAllUser?offset=${offset}&limit=${limit}`),
+  createUser: (p) => userServicePrivate.post('/user/createUser',p),
+  updateUser: (p) => userServicePrivate.put('/user/updateUser',p),
+  deleteUser: (p) => userServicePrivate.delete('/user/deleteUser',p),
 }
