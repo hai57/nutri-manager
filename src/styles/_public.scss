@@ -23,7 +23,10 @@
 }
 
 .bx {
-    font-size: 1.7rem;
+    font-size: 2rem;
+    &.bx-edit {
+        margin-right: 10px;
+    }
 }
 
 a {
@@ -44,3 +47,58 @@ body {
     background: var(--grey);
     overflow-x: hidden;
 }
+
+.btn-confirm {
+    float: right;
+    .btn {
+        border-radius: 36px 36px;
+        color: var(--success);
+        cursor: pointer;
+        display: inline-block;
+        padding: 7px 20px;
+        text-align: center;
+        text-decoration: none;
+        transition: all 250ms;
+        border: none;
+        font-size: 16px;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        &:hover {
+            transform: scale(1.05) rotate(-1deg);
+        }
+        &.danger {
+            color: var(--danger);
+        }
+    }
+}
+
+.ck-box {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+  }
+  .delete {
+    text-align: right;
+    .btn-delete {
+        margin-top: 20px;
+        padding: 5px;
+        border: none;
+        border-radius: 10px;
+        font-weight: 500;
+        font-size: 20px;
+        background-color: var(--light);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+        cursor: pointer;
+        &:hover {
+            color: var(--danger);
+            transition: 0.3s;
+            transform: scale(1.05) rotate(-1deg);
+        }
+    }
+    span {
+        margin-right: 10px;
+        font-weight: bold;
+        font-size: 20px;
+    }
+  }

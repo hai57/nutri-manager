@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { BiX, BiPlus } from 'react-icons/bi';
+import { BiX } from 'react-icons/bi';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { userServiceApi } from '@/api/user';
 
@@ -18,40 +20,50 @@ const UserForm = ({ onClose, onUserCreated, onUserUpdated, userDataToUpdate }) =
     }
   }, [userDataToUpdate]);
 
-  const userAction = async () => {
-    try {
-      const response = userDataToUpdate
-        ? await userServiceApi.updateUser(newUser)
-        : await userServiceApi.createUser(newUser);
+  const userAction = () => {
+    if (!newUser.name || !newUser.age || !newUser.gmail || !newUser.address) {
 
-      console.log(`User ${userDataToUpdate ? 'updated' : 'created'} successfully:`, response);
-
-      if (response.message === "Request Accepted" || response.message === "Created Success" ) {
-        console.log(response)
-        console.log(response.user);
-        if (userDataToUpdate) {
-          onUserUpdated(response.user);
-        } else {
-          onUserCreated(response.user);
-        }
-
-        setNewUser({
-          name: '',
-          age: '',
-          gmail: '',
-          address: '',
-          password: '',
-        });
-
-        onClose();
-      } else {
-        console.error(`Error ${userDataToUpdate ? 'updating' : 'creating'} user: Invalid response format`);
-      }
-    } catch (error) {
-      console.error(error);
+      toast.error('Please fill in all required fields.');
+      return;
     }
+
+    userDataToUpdate ? updateUser() : createUser()
   };
 
+  const createUser = async () => {
+    const res = await userServiceApi.createUser(newUser);
+
+    if (res.success) {
+      console.log(res);
+      const createdUser = { ...newUser, _id: res.user._id };
+      onUserCreated(createdUser)
+      setNewUser({
+        name: '',
+        age: '',
+        gmail: '',
+        address: '',
+        password: '',
+      })
+      onClose();
+    }
+  }
+
+  const updateUser = async () => {
+    const res = await userServiceApi.updateUser(newUser);
+
+    if (res.success) {
+      console.log(res);
+      onUserUpdated(newUser)
+      setNewUser({
+        user: '',
+        type: '',
+        name: '',
+        isParent: '',
+        description: ''
+      })
+      onClose();
+    }
+  }
   const handleFieldChange = (fieldName, value) => {
     setNewUser({
       ...newUser,
@@ -106,7 +118,7 @@ const UserForm = ({ onClose, onUserCreated, onUserUpdated, userDataToUpdate }) =
             />
           </div>
         </form>
-        <BiPlus onClick={userAction} className='bx end' />
+        <button onClick={userAction} className='btn end'>YES</button>
       </div>
     </div>
 

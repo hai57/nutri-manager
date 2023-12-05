@@ -35,20 +35,43 @@
       font-size: 20px;
       text-align: left;
       border-bottom: 1px solid var(--grey);
+      &.select {
+        width: 5%;
+      }
+      &.name {
+        width: 20%;
+      }
+      &.description {
+        width: 40%;
+      }
+      &.type {
+        width: 10%;
+      }
+      &.action {
+        width: 10%;
+      }
     }
 
     td {
       padding: 16px 0;
+      color: var(--dark);
     }
 
-    .fl-right {
-      float: right;
+    .txt-right {
+      text-align: right;
     }
 
     .bx {
       cursor: pointer;
     }
+    tr {
+      cursor: pointer;
+      transition: all 0.3s ease;
 
+      &:hover {
+        background: var(--grey);
+      }
+    }
     .completed {
       border-left: 10px solid var(--success);
     }

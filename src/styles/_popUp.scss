@@ -47,10 +47,26 @@
       padding: 10px 0 10px 5px;
 
       &.space {
-        justify-content: space-between;
+        flex-direction: column;
+        .activity {
+          display: flex;
+          justify-content: space-between;
+          gap: 10px;
+          padding: 10px 0 10px 5px;
+        }
+        .sub-activity {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+
+          select, input {
+            grid-column: span 1;
+            width: 100%;
+          }
+        }
       }
 
-      input {
+      .inp {
         flex-grow: 1;
         padding: 0 16px;
         border: none;
@@ -80,12 +96,10 @@
       float: right;
 
       &.btn {
-        border-radius: 36px 36px;
-        box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+        border-radius: 10px;
         color: var(--success);
         cursor: pointer;
         display: inline-block;
-        font-family: CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif;
         padding: 7px 20px;
         text-align: center;
         text-decoration: none;
@@ -97,7 +111,6 @@
         touch-action: manipulation;
 
         &:hover {
-          box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
           transform: scale(1.05) rotate(-1deg);
         }
       }

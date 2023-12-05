@@ -40,8 +40,8 @@
       width: 100%;
       border-collapse: collapse;
 
-      .fl-right {
-        float: right;
+      .txt-right {
+        text-align: right;
       }
 
       th {
@@ -49,12 +49,30 @@
         font-size: 20px;
         text-align: left;
         border-bottom: 1px solid var(--grey);
+
+        &:first-child {
+          width: 15%;
+          &.select {
+            width: 5%;
+          }
+        }
+        &.age {
+          width: 10%;
+        }
+        &.gmail {
+          width: 15%;
+        }
+        &.address {
+          width: 40%;
+        }
+        &.action {
+          width: 10%;
+        }
       }
 
       td {
         padding: 16px 0;
-
-        &:first-child {
+        &.td-user {
           display: flex;
           align-items: center;
           grid-gap: 12px;
@@ -89,6 +107,7 @@
         }
       }
 
+
       tr {
         cursor: pointer;
         transition: all 0.3s ease;
@@ -96,10 +115,9 @@
         &:hover {
           background: var(--grey);
         }
+
       }
     }
-
-
   }
 }
 

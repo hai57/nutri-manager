@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-
 import { BiLogOutCircle, BiCog, BiGroup, BiListCheck } from "react-icons/bi";
+
+import { storage } from "@/utils/storage";
+
 
 export const SideBar = () => {
     const [activeItem, setActiveItem] = useState('/dashboard/users');
@@ -12,6 +14,12 @@ export const SideBar = () => {
         setActiveItem(location.pathname);
     }, [location.pathname]);
 
+    const handleLogout = () => {
+        storage.remove('token');
+        storage.remove('userId')
+
+    };
+
     return (
         <div className="sidebar">
             <a href="#" className="logo">
@@ -19,7 +27,7 @@ export const SideBar = () => {
                 <div className="logo-name"><span>Asmr</span>Prog</div>
             </a>
             <ul className="side-menu">
-                <li  className={activeItem === '/dashboard/users' ? 'active' : ''}>
+                <li className={activeItem === '/dashboard/users' ? 'active' : ''}>
                     <a href="/dashboard/users" >
                         <BiGroup className="bx" />
                         Users
@@ -30,12 +38,12 @@ export const SideBar = () => {
                         <BiListCheck className="bx" />
                         Activities
                     </a>
-                    </li>
+                </li>
                 <li><a href="#"><BiCog className="bx" />Settings</a></li>
             </ul>
             <ul className="side-menu bottom">
                 <li>
-                    <a href="#" className="logout">
+                    <a href="/login" className="logout" onClick={handleLogout}>
                         <BiLogOutCircle className="bx"></BiLogOutCircle>
                         Logout
                     </a>

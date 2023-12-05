@@ -30,6 +30,10 @@ const routes = () => [
     ),
     children: [
       {
+        path: '/dashboard',
+        element: <Navigate to="users" replace />,
+      },
+      {
         path: 'users',
         element: <UserPage />,
       },

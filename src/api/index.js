@@ -30,9 +30,12 @@ const onRequestRejected = error => {
 }
 
 const onFulfilled = response => {
-  return Promise.resolve(response.data)
+  return Promise.resolve({
+    ...response.data,
+    success: true
+  })
   // if (response.data.code === 0 || response.data.result === 1) {
-    
+
   // } else {
   //   const errors = response.data?.errors || []
   //   return Promise.reject(errors)

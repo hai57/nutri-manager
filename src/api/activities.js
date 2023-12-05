@@ -12,5 +12,10 @@ export const activitiesServiceApi = {
   getAllActivities: (offset,limit) => activitiesServicePrivate.get(`/activities/getAllActivities?offset=${offset}&limit=${limit}`),
   createActivities: (p) => activitiesServicePrivate.post('/activities/createActivities', p),
   updateActivities: (p) => activitiesServicePrivate.put('/activities/updateActivities', p),
-  deleteActivities: (p) => activitiesServicePrivate.delete('/activities/deleteActivities',p)
+  deleteActivities: (p) => activitiesServicePrivate.delete('/activities/deleteActivities',p),
+
+  getSubActivities: (offset,limit) => activitiesServicePrivate.get(`/activities/getSubActivities?offset=${offset}&limit=${limit}`),
+  createSubActivities: (p) => activitiesServicePrivate.post('/activities/createSubActivities', p),
+  updateSubActivities: (p) => activitiesServicePrivate.put('/activities/updateSubActivities', p),
+  deleteSubActivities: (p) => activitiesServicePrivate.delete('/activities/deleteSubActivities',p),
 }
