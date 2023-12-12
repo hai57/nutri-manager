@@ -1,4 +1,4 @@
-import { BiBell, BiUser } from 'react-icons/bi'
+import { BiUser } from 'react-icons/bi'
 import { useDispatch, useSelector } from 'react-redux';
 
 import { switchMode } from "@/store/actions/darkmodeAction";
@@ -17,15 +17,16 @@ export const NavBar = () => {
   return (
     <nav>
       <form action="#">
-        <div className="form-input">
+        {/* <div className="form-input">
           <input type="search" placeholder="Search..." />
-        </div>
+        </div> */}
       </form>
-      <button className={`theme-toggle ${mode === 'dark' ? 'dark' : 'light'}` }type='button' onClick={handleThemeToggle}></button>
-      <a href="#" className="notif">
+      <span>{mode === 'dark' ? 'Dark' : 'Light'}</span>
+      <button className={`theme-toggle ${mode === 'dark' ? 'dark' : 'light'}`} type='button' onClick={handleThemeToggle}></button>
+      {/* <a href="#" className="notif">
         <BiBell className='bx'></BiBell>
         <span className="count">12</span>
-      </a>
+      </a> */}
       <a href="#" className="profile">
         <BiUser className='bx bx-user'></BiUser>
       </a>

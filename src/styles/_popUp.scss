@@ -12,9 +12,11 @@
 
   .popup {
     position: fixed;
+    height: 450px;
+    min-height: 450px;
     top: 50%;
     left: 50%;
-    width: 40%;
+    width: 600px;
     height: 30%;
     transform: translate(-50%, -50%);
     background: #fff;
@@ -40,62 +42,96 @@
     }
 
     form {
-      display: flex;
-      flex-direction: row;
-      gap: 10px;
-      justify-content: space-evenly;
       padding: 10px 0 10px 5px;
 
       &.space {
         flex-direction: column;
+
         .activity {
-          display: flex;
-          justify-content: space-between;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
           gap: 10px;
-          padding: 10px 0 10px 5px;
+
+          .fl_left {
+            grid-template-rows: repeat(2, 1fr);
+
+            .isCalories {
+              display: flex;
+              align-items: center;
+
+              span {
+                margin-right: 10px;
+              }
+
+              .ck-box {
+                width: 20px;
+              }
+            }
+          }
+
+          .fl_right {
+            grid-template-rows: repeat(2, 1fr);
+
+
+          }
+
+          input {
+            grid-column: span 1;
+            width: 100%;
+          }
         }
+
         .sub-activity {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
           gap: 10px;
 
-          select, input {
+          select,
+          input {
             grid-column: span 1;
             width: 100%;
           }
         }
       }
 
-      .inp {
-        flex-grow: 1;
-        padding: 0 16px;
-        border: none;
-        background: var(--grey);
-        border-radius: 36px 36px;
-        outline: none;
-        width: 300px;
-        height: 36px;
-        color: var(--dark);
+      .form-content {
+        .form-warpper {
+          margin-top: 16px;
+          display: flex;
+          align-items: center;
 
-      }
+          label {
+            margin-right: 15px;
+            width: 130px;
+          }
 
-      .fl_left {
-        display: grid;
-        grid-template-rows: repeat(3, 1fr);
-        gap: 20px;
-      }
+          .inp {
+            padding: 0 16px;
+            border: none;
+            background: var(--grey);
+            border-radius: 36px 36px;
+            outline: none;
+            width: calc(100% - 115px);
+            height: 36px;
+            color: var(--dark);
 
-      .fl_right {
-        display: grid;
-        grid-template-rows: repeat(3, 1fr);
-        gap: 20px;
+          }
+        }
       }
     }
 
     .end {
       float: right;
+    }
 
-      &.btn {
+    .footer-popup {
+      margin-top: 16px;
+      position: sticky;
+      bottom: 0;
+
+
+
+      .btn {
         border-radius: 10px;
         color: var(--success);
         cursor: pointer;

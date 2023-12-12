@@ -25,12 +25,16 @@
     padding-bottom: 20px;
     box-sizing: content-box;
 
-    span {
-      color: var(--dark);
+    .logo-name {
+      display: flex;
+
+      span {
+        color: var(--dark);
+      }
     }
 
     .bx {
-      min-width: 60px;
+      min-width: 30px;
       display: flex;
       justify-content: center;
       font-size: 2.2rem;

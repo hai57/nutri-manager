@@ -12,10 +12,10 @@ export const Header = () => {
 
     switch (pathname) {
       case "/dashboard/users":
-        pageName = "Users Dashboard";
+        pageName = "Users";
         break;
       case "/dashboard/activities":
-        pageName = "Activities Dashboard";
+        pageName = "Activities";
         break;
       // Thêm các trường hợp khác nếu cần
       default:

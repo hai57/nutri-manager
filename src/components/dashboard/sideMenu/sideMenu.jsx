@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { BiLogOutCircle, BiCog, BiGroup, BiListCheck } from "react-icons/bi";
+import { IoListOutline } from "react-icons/io5";
 
 import { storage } from "@/utils/storage";
 
@@ -24,7 +25,10 @@ export const SideBar = () => {
         <div className="sidebar">
             <a href="#" className="logo">
                 <i className='bx bx-code-alt'></i>
-                <div className="logo-name"><span>Asmr</span>Prog</div>
+                <div className="logo-name">
+                    <span><IoListOutline className="bx"/></span>
+                    Productive
+                </div>
             </a>
             <ul className="side-menu">
                 <li className={activeItem === '/dashboard/users' ? 'active' : ''}>

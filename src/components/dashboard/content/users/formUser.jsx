@@ -78,47 +78,62 @@ const UserForm = ({ onClose, onUserCreated, onUserUpdated, userDataToUpdate }) =
           <h3>{userDataToUpdate ? 'UPDATE USER' : 'CREATE NEW USER'}</h3>
         </div>
         <form>
-          <div className='fl_left'>
-            <input
-              className='inp'
-              type="text"
-              value={newUser.name}
-              placeholder='Name'
-              onChange={(e) => handleFieldChange('name', e.target.value)}
-            />
-            <input
-              className='inp'
-              type="text"
-              value={newUser.age}
-              placeholder='Age'
-              onChange={(e) => handleFieldChange('age', e.target.value)}
-            />
-            <input
-              className='inp'
-              type="text"
-              value={newUser.gmail}
-              onChange={(e) => handleFieldChange('gmail', e.target.value)}
-              placeholder='Gmail'
-            />
-          </div>
-          <div className='fl_right'>
-            <input
-              className='inp'
-              type="text"
-              value={newUser.address}
-              onChange={(e) => handleFieldChange('address', e.target.value)}
-              placeholder='Address'
-            />
-            <input
-              className='inp'
-              type="text"
-              value={newUser.password}
-              onChange={(e) => handleFieldChange('password', e.target.value)}
-              placeholder='Password'
-            />
+          <div className='form-content'>
+            <div className='form-warpper'>
+              <label>Ho va Ten: </label>
+              <input
+                className='inp'
+                type="text"
+                value={newUser.name}
+                placeholder='Name'
+                onChange={(e) => handleFieldChange('name', e.target.value)}
+              />
+            </div>
+            <div className='form-warpper'>
+              <label>Tuoi: </label>
+              <input
+                className='inp'
+                type="text"
+                value={newUser.age}
+                placeholder='Age'
+                onChange={(e) => handleFieldChange('age', e.target.value)}
+              />
+            </div>
+            <div className='form-warpper'>
+              <label>Email: </label>
+              <input
+                className='inp'
+                type="text"
+                value={newUser.gmail}
+                onChange={(e) => handleFieldChange('gmail', e.target.value)}
+                placeholder='Gmail'
+              />
+            </div>
+            <div className='form-warpper'>
+              <label>Dia chi: </label>
+              <input
+                className='inp'
+                type="text"
+                value={newUser.address}
+                onChange={(e) => handleFieldChange('address', e.target.value)}
+                placeholder='Address'
+              />
+            </div>
+            {/* <div className='form-warpper'>
+              <label>Mat khau: </label>
+              <input
+                className='inp'
+                type="text"
+                value={newUser.password}
+                onChange={(e) => handleFieldChange('password', e.target.value)}
+                placeholder='Password'
+              />
+            </div> */}
           </div>
         </form>
-        <button onClick={userAction} className='btn end'>YES</button>
+        <div className='footer-popup end'>
+          <button onClick={userAction} className='btn'>ACCEPTED</button>
+        </div>
       </div>
     </div>
 

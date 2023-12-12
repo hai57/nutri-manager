@@ -1,7 +1,7 @@
 import { Activity } from '@/components/dashboard/content/activities/activity';
 import '@/styles/index.scss'
 
-const ActivityPage = () => {
+const SubActivityPage = () => {
 
   return (
     <>
@@ -10,4 +10,4 @@ const ActivityPage = () => {
   )
 }
 
-export default ActivityPage;
+export default SubActivityPage;
