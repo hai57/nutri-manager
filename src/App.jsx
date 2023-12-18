@@ -1,8 +1,11 @@
 import { useRoutes } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import 'react-toastify/dist/ReactToastify.css'
 
 import routes from '@/router.jsx'
-import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import '@/styles/index.scss'
+
 
 function App() {
   const routing = useRoutes(routes())

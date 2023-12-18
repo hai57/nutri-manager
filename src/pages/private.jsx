@@ -1,20 +1,45 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 
 import { storage } from "@/utils/storage"
-import { getAllUser } from "@/hooks/getAllUser"
+import DashboardPage from "./dashboard"
+import { authServiceApi } from "@/api/auth"
+import { setSelf } from "@/store/actions/selfAction"
 
-const PrivatePage = ({ children }) => {
-  let token = storage.get('token')
+const PrivatePage = () => {
+  const dispatch = useDispatch()
   const navigator = useNavigate()
-  getAllUser()
+  let token = storage.get('token')
+  const { authorize } = useSelector(state => state.authorizeAction)
+
+  const handleCheckToken = async () => {
+    authServiceApi.checkToken()
+      .then(res => {
+        dispatch(setSelf(res.user))
+      })
+      .catch(() => navigator('/login'))
+  }
+
   useEffect(() => {
-    if (!token) navigator('/login')
-  }, [navigator, token])
+    if (!authorize) {
+      if (token) {
+        handleCheckToken()
+      } else {
+        navigator('/login')
+      }
+    }
+  }, [navigator, authorize])
 
   if (!token) return null
-  return <div>{children}</div>
+  return (
+    <div>
+      <DashboardPage>
+        <Outlet />
+      </DashboardPage>
+    </div>
+  )
 }
 
 export default PrivatePage

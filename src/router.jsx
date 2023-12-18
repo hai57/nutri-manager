@@ -1,10 +1,12 @@
 import { lazy } from 'react'
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { Routing } from './utils/routing';
 
 const LoginPage = lazy(() => import('@/pages/login'))
-const DashboardPage = lazy(() => import('@/pages/dashboard'))
 const UserPage = lazy(() => import('@/pages/dashboard/user'))
 const ActivityPage = lazy(() => import('@/pages/dashboard/activities'))
+const SubActivityPage = lazy(() => import('@/pages/dashboard/subActivities'))
+const SettingPage = lazy(() => import('@/pages/dashboard/settings'))
 const PrivatePage = lazy(() => import('@/pages/private'))
 
 const RedirectToLogin = () => <Navigate to="/login" replace />;
@@ -16,31 +18,28 @@ const routes = () => [
     element: <RedirectToLogin />,
   },
   {
-    path: '/login',
+    path: Routing.login.path,
     element: <LoginPage />,
   },
   {
-    path: `/dashboard`,
-    element: (
-      <PrivatePage>
-        <DashboardPage>
-          <Outlet />
-        </DashboardPage>
-      </PrivatePage>
-    ),
+    element: <PrivatePage />,
     children: [
       {
-        path: '/dashboard',
-        element: <Navigate to="users" replace />,
-      },
-      {
-        path: 'users',
+        path: Routing.users.path,
         element: <UserPage />,
       },
       {
-        path: 'activities',
+        path: Routing.activities.path,
         element: <ActivityPage />,
       },
+      {
+        path: `${Routing.settings.path}/:idUser`,
+        element: <SettingPage />,
+      },
+      {
+        path: `${Routing.subActivities.path}/:id`,
+        element: <SubActivityPage />
+      }
     ],
   },
 ]

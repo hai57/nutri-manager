@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BiUser, BiReceipt, BiSearch, BiPlus, BiTrash, BiArrowToLeft, BiArrowToRight, BiEdit } from 'react-icons/bi';
+import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { userServiceApi } from '@/api/user';
 import UserForm from './formUser'
@@ -19,20 +19,26 @@ export const UsersInfo = () => {
   const [showCheckboxes, setShowCheckboxes] = useState(false);
   const [selectedUsers, setSelectedUsers] = useState([]);
 
+  const selfUserData = useSelector((state) => state.selfAction.user);
+
   useEffect(() => {
     getAllUser();
-  }, [offset, limit]);
+  }, [offset, limit, selfUserData]);
 
   const getAllUser = async () => {
-    try {
-      const response = await userServiceApi.getAllUser(offset, limit);
-      setUserData(response.usersWithRoles);
-      setHasNextPage(response.usersWithRoles.length === limit);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    } finally {
-      setLoading(false);
-    }
+    userServiceApi.getAllUser(offset, limit)
+      .then((res) => {
+        console.log(res)
+        console.log(selfUserData)
+        const filteredUserData = res.usersWithRoles.filter(user => user._id !== selfUserData._id);
+
+        setUserData(filteredUserData);
+        setHasNextPage(filteredUserData.length === limit);
+      }).catch((error) => {
+        console.error('Error fetching data:', error);
+      }).finally(() => {
+        setLoading(false);
+      })
   };
 
   const handleUserCreated = (newUser) => {
@@ -83,27 +89,6 @@ export const UsersInfo = () => {
       .catch(err => {
         console.log(err);
       })
-    // try {
-    //   const response = await userServiceApi.deleteUser({ data: { idUser: userId } });
-
-    //   if (response.message === 'Request Accepted') {
-    //     // Kiem tra xem phan tu da xoa co o trang dau khong
-    //     const indexOfDeleted = userData.findIndex((user) => user._id === userId);
-    //     if (indexOfDeleted !== -1 && indexOfDeleted < offset + limit) {
-    //       // Tai lai trang khi ds cap nhat lai
-    //       getAllUser();
-    //     } else {
-    //       // Cap nhat trang thai hien tai
-    //       setUserData((prevData) => prevData.filter((user) => user._id !== userId));
-    //     }
-    //   } else {
-    //     toast.error('Failed to delete user');
-    //     console.error('Unexpected success message. Response:', response);
-    //   }
-    // } catch (error) {
-    //   toast.error('Error deleting user');
-    //   console.error('Error deleting user:', error);
-    // }
   };
 
   const handleToggleCheckboxes = () => {
@@ -175,7 +160,7 @@ export const UsersInfo = () => {
               )}
               <th >User</th>
               <th className='age'>Age</th>
-              <th className='gmail'>Gmail</th>
+              <th className='gmail'>Email</th>
               <th className='address'>Address</th>
               <th className='action txt-right'>Action</th>
             </tr>
@@ -202,10 +187,12 @@ export const UsersInfo = () => {
                 <td>{user && user.address}</td>
                 {/* <td><span className="status pending">Pending</span></td> */}
                 <td className='txt-right'>
-                  <BiEdit className='bx bx-edit' onClick={() => handleToggleUserForm(user)}>
-                    <span>Edit</span>
-                  </BiEdit>
-                  <BiTrash className='bx' onClick={() => handleDeleteUser(user._id)} />
+                  <button className='btn' onClick={() => handleToggleUserForm(user)} >
+                    <BiEdit className='bx' />
+                  </button>
+                  <button className='btn' onClick={() => handleDeleteUser(user._id)} >
+                    <BiTrash className='bx ' />
+                  </button>
                 </td>
               </tr>
             ))}

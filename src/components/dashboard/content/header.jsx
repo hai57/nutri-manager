@@ -1,21 +1,28 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 export const Header = () => {
   const location = useLocation();
+  const { id } = useParams();
   const [activePage, setActivePage] = useState('');
 
   useEffect(() => {
     // Lay ten trang tu pathname cua location
     const pathname = location.pathname;
     let pageName = '';
-
     switch (pathname) {
-      case "/dashboard/users":
+      case "/users":
         pageName = "Users";
         break;
-      case "/dashboard/activities":
+      case "/activities":
         pageName = "Activities";
+        break;
+      case `/sub-activities/${id}`:
+        pageName = "Sub Activities";
+        break;
+      // eslint-disable-next-line no-duplicate-case
+      case `/settings/${id}`:
+        pageName = "Settings";
         break;
       // Thêm các trường hợp khác nếu cần
       default:

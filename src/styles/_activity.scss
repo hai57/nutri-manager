@@ -23,6 +23,10 @@
       font-weight: 600;
     }
 
+    span {
+      color: var(--primary);
+    }
+
     .bx {
       cursor: pointer;
     }
@@ -55,6 +59,14 @@
 
       &.calories {
         width: 10%;
+      }
+
+      &.amount {
+        width: 20%;
+      }
+
+      &.unit {
+        width: 20%;
       }
 
       &.action {

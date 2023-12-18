@@ -14,5 +14,6 @@ authServicePrivate.interceptors.response.use(onFulfilled, onRejected)
 
 export const authServiceApi = {
   login: (p) => authServicePublic.post('/user/login', p),
-  // logout: () => authServicePublic.get('/user/getAllUser'),
+  register: (p) => authServicePublic.post('/user/register', p),
+  checkToken: () => authServicePrivate.get('/user/checkToken'),
 }

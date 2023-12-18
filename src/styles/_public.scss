@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto+Slab&display=swap');
+
 
 :root {
     --light: #f6f6f9;
@@ -19,14 +20,32 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto Slab', serif;
+}
+
+input[type=number] {
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+}
+
+.capitalize {
+    text-transform: capitalize;
 }
 
 .bx {
+    color: var(--dark);
     font-size: 2rem;
+
     &.bx-edit {
         margin-right: 10px;
     }
+}
+
+button {
+    background: var(--light);
+    border: none;
 }
 
 a {
@@ -48,8 +67,9 @@ body {
     overflow-x: hidden;
 }
 
-.btn-confirm {
+.btn-container {
     float: right;
+
     .btn {
         border-radius: 36px 36px;
         color: var(--success);
@@ -64,9 +84,11 @@ body {
         user-select: none;
         -webkit-user-select: none;
         touch-action: manipulation;
+
         &:hover {
             transform: scale(1.05) rotate(-1deg);
         }
+
         &.danger {
             color: var(--danger);
         }
@@ -77,9 +99,11 @@ body {
     cursor: pointer;
     width: 20px;
     height: 20px;
-  }
-  .delete {
+}
+
+.delete {
     text-align: right;
+
     .btn-delete {
         margin-top: 20px;
         padding: 5px;
@@ -90,15 +114,33 @@ body {
         background-color: var(--light);
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
         cursor: pointer;
+
         &:hover {
             color: var(--danger);
             transition: 0.3s;
             transform: scale(1.05) rotate(-1deg);
         }
     }
+
     span {
         margin-right: 10px;
         font-weight: bold;
         font-size: 20px;
     }
-  }
+}
+
+.txt-right {
+    .btn {
+        margin-right: 10px;
+        background: var(--light);
+    }
+
+    a {
+        margin-right: 10px;
+        color: var(--dark);
+    }
+}
+
+.end {
+    float: right;
+}

@@ -5,9 +5,6 @@ export const counterAction = createSlice({
   initialState: {
     value: 0,
     authorize: false,
-    user: {
-      
-    }
   },
   reducers: {
     increment: state => {

@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { BiX } from 'react-icons/bi';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { userServiceApi } from '@/api/user';
+import Popup from '@/components/popUp';
 
 // eslint-disable-next-line react/prop-types
 const UserForm = ({ onClose, onUserCreated, onUserUpdated, userDataToUpdate }) => {
@@ -14,6 +13,39 @@ const UserForm = ({ onClose, onUserCreated, onUserUpdated, userDataToUpdate }) =
     address: '',
     password: ''
   });
+
+  const formFields = [
+    {
+      label: 'Ho va Ten',
+      type: 'text',
+      value: newUser.name,
+      placeholder: 'Name',
+      onChange: (value) => handleFieldChange('name', value),
+    },
+    {
+      label: 'Tuoi',
+      type: 'text',
+      value: newUser.age,
+      placeholder: 'Age',
+      onChange: (value) => handleFieldChange('age', value),
+    },
+    {
+      label: 'Email',
+      type: 'text',
+      value: newUser.gmail,
+      placeholder: 'Email',
+      onChange: (value) => handleFieldChange('gmail', value),
+    },
+    {
+      label: 'Dia chi',
+      type: 'text',
+      value: newUser.address,
+      placeholder: 'Address',
+      onChange: (value) => handleFieldChange('address', value),
+    },
+    // Bạn có thể thêm các trường khác tại đây
+  ];
+
   useEffect(() => {
     if (userDataToUpdate) {
       setNewUser(userDataToUpdate);
@@ -46,7 +78,7 @@ const UserForm = ({ onClose, onUserCreated, onUserUpdated, userDataToUpdate }) =
       })
       onClose();
     }
-  }
+  };
 
   const updateUser = async () => {
     const res = await userServiceApi.updateUser(newUser);
@@ -63,7 +95,8 @@ const UserForm = ({ onClose, onUserCreated, onUserUpdated, userDataToUpdate }) =
       })
       onClose();
     }
-  }
+  };
+
   const handleFieldChange = (fieldName, value) => {
     setNewUser({
       ...newUser,
@@ -71,71 +104,12 @@ const UserForm = ({ onClose, onUserCreated, onUserUpdated, userDataToUpdate }) =
     });
   };
   return (
-    <div className="popup-overlay">
-      <div className="popup">
-        <BiX onClick={onClose} className='bx end' />
-        <div className="header">
-          <h3>{userDataToUpdate ? 'UPDATE USER' : 'CREATE NEW USER'}</h3>
-        </div>
-        <form>
-          <div className='form-content'>
-            <div className='form-warpper'>
-              <label>Ho va Ten: </label>
-              <input
-                className='inp'
-                type="text"
-                value={newUser.name}
-                placeholder='Name'
-                onChange={(e) => handleFieldChange('name', e.target.value)}
-              />
-            </div>
-            <div className='form-warpper'>
-              <label>Tuoi: </label>
-              <input
-                className='inp'
-                type="text"
-                value={newUser.age}
-                placeholder='Age'
-                onChange={(e) => handleFieldChange('age', e.target.value)}
-              />
-            </div>
-            <div className='form-warpper'>
-              <label>Email: </label>
-              <input
-                className='inp'
-                type="text"
-                value={newUser.gmail}
-                onChange={(e) => handleFieldChange('gmail', e.target.value)}
-                placeholder='Gmail'
-              />
-            </div>
-            <div className='form-warpper'>
-              <label>Dia chi: </label>
-              <input
-                className='inp'
-                type="text"
-                value={newUser.address}
-                onChange={(e) => handleFieldChange('address', e.target.value)}
-                placeholder='Address'
-              />
-            </div>
-            {/* <div className='form-warpper'>
-              <label>Mat khau: </label>
-              <input
-                className='inp'
-                type="text"
-                value={newUser.password}
-                onChange={(e) => handleFieldChange('password', e.target.value)}
-                placeholder='Password'
-              />
-            </div> */}
-          </div>
-        </form>
-        <div className='footer-popup end'>
-          <button onClick={userAction} className='btn'>ACCEPTED</button>
-        </div>
-      </div>
-    </div>
+    <Popup
+      onClose={onClose}
+      title={userDataToUpdate ? 'UPDATE USER' : 'CREATE NEW USER'}
+      formFields={formFields}
+      onAccept={userAction}
+    />
 
   );
 };

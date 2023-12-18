@@ -1,0 +1,65 @@
+.settings-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .settings-wrapper {
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+
+    .bx {
+      margin-right: 10px;
+      font-size: 15px;
+    }
+
+    label {
+      font-size: 20px;
+      margin: 15px 0;
+    }
+
+    .inp {
+      padding: 0 16px;
+      border: none;
+      background: var(--grey);
+      border-radius: 36px 36px;
+      outline: none;
+      width: calc(100% - 155px);
+      height: 50px;
+      color: var(--dark);
+      font-size: 18px;
+    }
+
+
+  }
+}
+
+.footer-settings {
+  margin-top: 16px;
+  position: sticky;
+  bottom: 0;
+
+  .btn {
+    border-radius: 10px;
+    background-color: var(--grey);
+    color: var(--dark);
+    cursor: pointer;
+    display: inline-block;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: none;
+    font-size: 18px;
+    font-weight: 800;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+
+    &:hover {
+      transform: scale(1.05) rotate(-1deg);
+    }
+  }
+}

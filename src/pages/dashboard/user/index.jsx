@@ -1,5 +1,4 @@
-import { UsersInfo } from '@/components/dashboard/content/users/usersInfo';
-import '@/styles/index.scss'
+import { UsersInfo } from '@/components/dashboard/content/users/usersInfo'
 
 const UserPage = () => {
 

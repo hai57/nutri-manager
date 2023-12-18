@@ -1,5 +1,4 @@
-import { Activity } from '@/components/dashboard/content/activities/activity';
-import '@/styles/index.scss'
+import { Activity } from '@/components/dashboard/content/activities/activity'
 
 const ActivityPage = () => {
 
