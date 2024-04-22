@@ -40,9 +40,6 @@
       width: 100%;
       border-collapse: collapse;
 
-      .txt-right {
-        text-align: right;
-      }
 
       th {
         padding-bottom: 12px;
@@ -50,32 +47,18 @@
         text-align: left;
         border-bottom: 1px solid var(--grey);
 
-        &:first-child {
-          width: 15%;
+      }
 
-          &.select {
-            width: 5%;
-          }
-        }
+      .txt-right {
+        text-align: right
+      }
 
-        &.age {
-          width: 10%;
-        }
-
-        &.gmail {
-          width: 15%;
-        }
-
-        &.address {
-          width: 40%;
-        }
-
-        &.action {
-          width: 10%;
-        }
+      .txt-center {
+        text-align: center;
       }
 
       td {
+        font-size: 19px;
         padding: 16px 0;
 
         &.td-user {
@@ -89,6 +72,14 @@
             height: 36px;
             border-radius: 50%;
             object-fit: cover;
+          }
+        }
+
+        &.txt-right {
+          text-align: right;
+
+          .btn {
+            cursor: pointer;
           }
         }
 

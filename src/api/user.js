@@ -9,8 +9,8 @@ userServicePrivate.interceptors.request.use(onRequestFulfilled, onRequestRejecte
 userServicePrivate.interceptors.response.use(onFulfilled, onRejected)
 
 export const userServiceApi = {
-  getAllUser: (offset, limit) => userServicePrivate.get(`/user/getAllUser?offset=${offset}&limit=${limit}`),
-  createUser: (p) => userServicePrivate.post('/user/createUser', p),
-  updateUser: (p) => userServicePrivate.put('/user/updateUser', p),
-  deleteUser: (p) => userServicePrivate.delete('/user/deleteUser', p),
+  getAllUser: (offset, limit) => userServicePrivate.get(`/user/get-all-user?offset=${offset}&limit=${limit}`),
+  createUser: (p) => userServicePrivate.post('/user/create-user', p),
+  updateUser: (p) => userServicePrivate.put('/user/update-user-with-id', p),
+  deleteUser: (p) => userServicePrivate.delete('/user/delete-user', p),
 }

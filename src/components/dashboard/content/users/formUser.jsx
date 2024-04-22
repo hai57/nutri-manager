@@ -7,27 +7,33 @@ import Popup from '@/components/popUp';
 // eslint-disable-next-line react/prop-types
 const UserForm = ({ onClose, onUserCreated, onUserUpdated, userDataToUpdate }) => {
   const [newUser, setNewUser] = useState({
-    name: '',
-    age: '',
+    username: '',
+    birthday: '',
     gmail: '',
-    address: '',
-    password: ''
+    gender: 'Nam',
+    height: '',
+    weight: '',
   });
+
+  const formattedBirthday = (birthday) => {
+    const [day, month, year] = birthday.split('-');
+    return `${year}-${month}-${day}`;
+  };
+
 
   const formFields = [
     {
-      label: 'Ho va Ten',
+      label: 'Họ và tên',
       type: 'text',
-      value: newUser.name,
-      placeholder: 'Name',
-      onChange: (value) => handleFieldChange('name', value),
+      value: newUser.username,
+      placeholder: 'Họ và tên',
+      onChange: (value) => handleFieldChange('username', value),
     },
     {
-      label: 'Tuoi',
-      type: 'text',
-      value: newUser.age,
-      placeholder: 'Age',
-      onChange: (value) => handleFieldChange('age', value),
+      label: 'Ngày sinh',
+      type: 'date',
+      value: newUser.birthday,
+      onChange: (value) => handleFieldChange('birthday', value),
     },
     {
       label: 'Email',
@@ -37,23 +43,44 @@ const UserForm = ({ onClose, onUserCreated, onUserUpdated, userDataToUpdate }) =
       onChange: (value) => handleFieldChange('gmail', value),
     },
     {
-      label: 'Dia chi',
-      type: 'text',
-      value: newUser.address,
-      placeholder: 'Address',
-      onChange: (value) => handleFieldChange('address', value),
+      label: 'Giới tính',
+      type: 'select',
+      value: newUser.gender,
+      options: [
+        { value: 'Nam', label: 'Nam' },
+        { value: 'Nữ', label: 'Nữ' },
+      ],
+      onChange: (value) => handleFieldChange('gender', value),
     },
-    // Bạn có thể thêm các trường khác tại đây
+    {
+      label: 'Chiều cao',
+      type: 'text',
+      value: newUser.height,
+      placeholder: 'Chiều cao',
+      onChange: (value) => handleFieldChange('height', value),
+    },
+    {
+      label: 'Cân nặng',
+      type: 'text',
+      value: newUser.weight,
+      placeholder: 'Cân nặng',
+      onChange: (value) => handleFieldChange('weight', value),
+    },
   ];
 
   useEffect(() => {
     if (userDataToUpdate) {
-      setNewUser(userDataToUpdate);
+      // eslint-disable-next-line react/prop-types
+      const formattedBday = formattedBirthday(userDataToUpdate.birthday);
+      setNewUser({
+        ...userDataToUpdate,
+        birthday: formattedBday,
+      });
     }
   }, [userDataToUpdate]);
 
   const userAction = () => {
-    if (!newUser.name || !newUser.age || !newUser.gmail || !newUser.address) {
+    if (!newUser.username || !newUser.birthday || !newUser.gender || !newUser.gmail || !newUser.weight || !newUser.height) {
 
       toast.error('Please fill in all required fields.');
       return;
@@ -63,35 +90,53 @@ const UserForm = ({ onClose, onUserCreated, onUserUpdated, userDataToUpdate }) =
   };
 
   const createUser = async () => {
-    const res = await userServiceApi.createUser(newUser);
+    const parts = newUser.birthday.split('-');
+
+    const formattedBirthday = `${parts[2]}-${parts[1]}-${parts[0]}`;
+
+    const createdUser = {
+      ...newUser,
+      birthday: formattedBirthday,
+    };
+    const res = await userServiceApi.createUser(createdUser);
 
     if (res.success) {
       console.log(res);
-      const createdUser = { ...newUser, _id: res.user._id };
+      const createdUser = { ...newUser, id: res.user.id };
       onUserCreated(createdUser)
       setNewUser({
-        name: '',
-        age: '',
+        username: '',
+        birthday: '',
         gmail: '',
-        address: '',
-        password: '',
+        gender: 'Nam',
+        height: '',
+        weight: ''
       })
       onClose();
     }
   };
 
   const updateUser = async () => {
-    const res = await userServiceApi.updateUser(newUser);
+    const parts = newUser.birthday.split('-');
+
+    const formattedBirthday = `${parts[2]}-${parts[1]}-${parts[0]}`;
+
+    const updatedUser = {
+      ...newUser,
+      birthday: formattedBirthday,
+    };
+    const res = await userServiceApi.updateUser(updatedUser);
 
     if (res.success) {
       console.log(res);
-      onUserUpdated(newUser)
+      onUserUpdated(updatedUser);
       setNewUser({
-        user: '',
-        type: '',
-        name: '',
-        isParent: '',
-        description: ''
+        username: '',
+        birthday: '',
+        gmail: '',
+        gender: 'Nam',
+        height: '',
+        weight: ''
       })
       onClose();
     }

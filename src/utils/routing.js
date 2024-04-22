@@ -15,6 +15,10 @@ export const Routing = {
     name: "activities",
     path: "/activities"
   },
+  schedules: {
+    name: "schedules",
+    path: "/schedules"
+  },
   subActivities: {
     name: "subActivities",
     path: "/sub-activities"

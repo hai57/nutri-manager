@@ -7,7 +7,7 @@ const SubActivityItem = (props) => {
 
   return (
     <tr className="process">
-      <td>{subActivity.name}</td>
+      <td>{subActivity.subActivityName}</td>
       <td>{subActivity.amount ?? ""}</td>
       <td>{subActivity.unit}</td>
 
@@ -15,7 +15,7 @@ const SubActivityItem = (props) => {
         <button className='btn' onClick={() => handleToggleSubActivityForm(subActivity)} >
           <BiEdit className='bx' />
         </button>
-        <button className='btn' onClick={() => handleDeleteSubActivities(subActivity._id)} >
+        <button className='btn' onClick={() => handleDeleteSubActivities(subActivity.subActivityId)} >
           <BiTrash className='bx ' />
         </button>
 

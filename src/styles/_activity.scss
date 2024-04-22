@@ -36,51 +36,24 @@
     width: 100%;
 
     th {
-      padding-bottom: 12px;
+      padding: 12px;
       font-size: 20px;
       text-align: left;
       border-bottom: 1px solid var(--grey);
-
-      &.select {
-        width: 5%;
-      }
-
-      &.time {
-        width: 15%;
-      }
-
-      &.name {
-        width: 20%;
-      }
-
-      &.description {
-        width: 40%;
-      }
-
-      &.calories {
-        width: 10%;
-      }
-
-      &.amount {
-        width: 20%;
-      }
-
-      &.unit {
-        width: 20%;
-      }
-
-      &.action {
-        width: 10%;
-      }
     }
 
     td {
-      padding: 16px 0;
+      font-size: 19px;
+      padding: 15px;
       color: var(--dark);
     }
 
     .txt-right {
-      text-align: right;
+      text-align: right
+    }
+
+    .txt-center {
+      text-align: center;
     }
 
     .bx {

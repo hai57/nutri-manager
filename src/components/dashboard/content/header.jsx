@@ -17,6 +17,9 @@ export const Header = () => {
       case "/activities":
         pageName = "Activities";
         break;
+      case "/schedules":
+        pageName = "Schedules";
+        break;
       case `/sub-activities/${id}`:
         pageName = "Sub Activities";
         break;

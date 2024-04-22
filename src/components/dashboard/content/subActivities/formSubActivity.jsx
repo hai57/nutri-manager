@@ -8,17 +8,17 @@ import Popup from '@/components/popUp';
 
 const SubActivityForm = ({ idActivity, onClose, onSubActivityCreated, onSubActivityUpdated, subActivityDataToUpdate }) => {
   const [newSubActivity, setNewSubActivity] = useState({
-    name: '',
+    subActivityName: '',
     amount: 0,
-    unit: 'kg'
+    unit: 'g'
   });
   const formFields = [
     {
       label: 'Tên hoạt động',
       type: 'text',
-      value: newSubActivity.name,
+      value: newSubActivity.subActivityName,
       placeholder: 'Tên',
-      onChange: (value) => handleFieldChange('name', value),
+      onChange: (value) => handleFieldChange('subActivityName', value),
     },
     {
       label: 'Tốn',
@@ -32,8 +32,8 @@ const SubActivityForm = ({ idActivity, onClose, onSubActivityCreated, onSubActiv
       type: 'select',
       value: newSubActivity.unit,
       options: [
-        { value: 'kg', label: 'kg' },
-        { value: 's', label: 's' },
+        { value: 'g', label: 'g' },
+        { value: 'm', label: 'm' },
       ],
       onChange: (value) => handleFieldChange('unit', value),
     },
@@ -48,7 +48,7 @@ const SubActivityForm = ({ idActivity, onClose, onSubActivityCreated, onSubActiv
   }, [subActivityDataToUpdate]);
 
   const activityAction = () => {
-    if (!newSubActivity.name) {
+    if (!newSubActivity.subActivityName) {
       toast.error('Please fill in all required fields.');
       return;
     }
@@ -60,15 +60,15 @@ const SubActivityForm = ({ idActivity, onClose, onSubActivityCreated, onSubActiv
   const updateSubActivity = async () => {
     activitiesServiceApi.updateSubActivities({
       ...newSubActivity,
-      subActivitiesID: newSubActivity._id
+      subActivityId: newSubActivity.subActivityId
     })
       .then((res) => {
         if (res.success) {
           onSubActivityUpdated(newSubActivity);
           setNewSubActivity({
-            name: '',
+            subActivityName: '',
             amount: 0,
-            unit: 'kg'
+            unit: 'g'
           })
           onClose();
         } else {
@@ -83,18 +83,18 @@ const SubActivityForm = ({ idActivity, onClose, onSubActivityCreated, onSubActiv
   const createSubActivity = async () => {
     const res = await activitiesServiceApi.createSubActivities({
       ...newSubActivity,
-      idActivities: idActivity,
+      activityId: idActivity,
     });
 
     if (res.success) {
       console.log(res)
-      const createdSubActivity = { ...newSubActivity, _id: res.newSubActivities._id }
+      const createdSubActivity = { ...newSubActivity, subActivityId: res.subactivity.subActivityId }
       onSubActivityCreated(createdSubActivity)
 
       setNewSubActivity({
-        name: '',
+        subActivityName: '',
         amount: 0,
-        unit: 'kg'
+        unit: 'g'
       });
       onClose();
     }

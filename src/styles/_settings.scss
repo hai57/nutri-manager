@@ -6,6 +6,7 @@
   align-items: center;
 
   .settings-wrapper {
+    margin-bottom: 20px;
     width: 1000px;
     display: flex;
     flex-direction: column;
@@ -61,5 +62,11 @@
     &:hover {
       transform: scale(1.05) rotate(-1deg);
     }
+  }
+
+  .disable {
+    display: none;
+    pointer-events: none;
+    cursor: not-allowed;
   }
 }

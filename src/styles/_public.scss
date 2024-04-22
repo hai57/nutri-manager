@@ -30,6 +30,10 @@ input[type=number] {
     }
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+}
+
 .capitalize {
     text-transform: capitalize;
 }
@@ -41,6 +45,26 @@ input[type=number] {
     &.bx-edit {
         margin-right: 10px;
     }
+}
+
+.w-5 {
+    width: 5%;
+}
+
+.w-10 {
+    width: 10%;
+}
+
+.w-15 {
+    width: 15%;
+}
+
+.w-20 {
+    width: 20%;
+}
+
+.w-40 {
+    width: 40%;
 }
 
 button {
@@ -129,16 +153,22 @@ body {
     }
 }
 
-.txt-right {
-    .btn {
-        margin-right: 10px;
-        background: var(--light);
-    }
+.txt-center {
+    text-align: center;
+}
 
-    a {
-        margin-right: 10px;
-        color: var(--dark);
-    }
+.txt-right {
+    text-align: right;
+}
+
+.btn {
+    margin-right: 10px;
+    background: var(--light);
+}
+
+a {
+    margin-right: 10px;
+    color: var(--dark);
 }
 
 .end {

@@ -10,8 +10,8 @@ export const getAllUser = () => {
 
   const getAllUser = () => {
     userServiceApi.getAllUser(offset, limit)
-    .then(res => {
-      console.log(res);
-    })
+      .then(res => {
+        console.log(res);
+      })
   }
 };

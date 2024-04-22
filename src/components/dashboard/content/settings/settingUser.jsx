@@ -6,42 +6,60 @@ import { MdEmail } from "react-icons/md";
 import { ToastContainer, toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 
-import { userServiceApi } from '../../../../api/user';
-
+import { userServiceApi } from '@/api/user';
 
 const SettingUser = () => {
   const [loading, setLoading] = useState(true)
   const [changeField, setChangeField] = useState(false)
   const [updatedUser, setUpdatedUser] = useState({
-    name: '',
-    age: '',
+    username: '',
+    birthday: '',
     gmail: '',
-    address: '',
+    gender: '',
+    weight: '',
+    height: '',
   });
+
   const formFields = [
     {
       label: 'Họ và tên',
       type: 'text',
-      value: updatedUser.name,
+      value: updatedUser.username,
       placeholder: 'Tên',
-      onChange: (value) => handleFieldChange('name', value),
+      onChange: (value) => handleFieldChange('username', value),
       icon: <BiGroup className="bx" />
     },
     {
-      label: 'Tuổi',
+      label: 'Ngày sinh',
       type: 'text',
-      value: updatedUser.age,
-      placeholder: 'Tuổi',
-      onChange: (value) => handleFieldChange('age', value),
+      value: updatedUser.birthday,
+      placeholder: 'Ngày sinh',
+      onChange: (value) => handleFieldChange('birthday', value),
       icon: <FaBirthdayCake className="bx" />
     },
     {
-      label: 'Địa chỉ',
+      label: 'Giới tính',
       type: 'text',
-      value: updatedUser.address,
-      placeholder: 'Địa chỉ',
-      onChange: (value) => handleFieldChange('address', value),
+      value: updatedUser.gender,
+      placeholder: 'Giới tính',
+      onChange: (value) => handleFieldChange('gender', value),
       icon: <FaMapMarkerAlt className="bx" />
+    },
+    {
+      label: 'Cân nặng',
+      type: 'text',
+      value: updatedUser.weight,
+      placeholder: 'Cân nặng',
+      onChange: (value) => handleFieldChange('weight', value),
+      icon: <FaBirthdayCake className="bx" />
+    },
+    {
+      label: 'Chiều cao',
+      type: 'text',
+      value: updatedUser.height,
+      placeholder: 'Chiều cao',
+      onChange: (value) => handleFieldChange('height', value),
+      icon: <FaBirthdayCake className="bx" />
     },
     {
       label: 'Email',
@@ -49,7 +67,8 @@ const SettingUser = () => {
       value: updatedUser.gmail,
       placeholder: 'Email',
       onChange: (value) => handleFieldChange('gmail', value),
-      icon: <MdEmail className="bx" />
+      icon: <MdEmail className="bx" />,
+      disabled: true,
     },
   ];
 
@@ -57,14 +76,13 @@ const SettingUser = () => {
 
   useEffect(() => {
     setUpdatedUser(selfUserData)
-
     setLoading(false)
-  }, [selfUserData])
+  }, [selfUserData]);
 
   const handleUpdateUser = () => {
-    userServiceApi.updateUser({
+    userServiceApi.updateUserWithId({
       ...updatedUser,
-      _id: '....'
+      id: selfUserData.id
     })
       .then((res) => {
         console.log(res)
@@ -75,23 +93,26 @@ const SettingUser = () => {
       })
   };
 
-  if (loading) {
-    return (
-      <div>Loading...</div>
-    )
-  }
   const handleFieldChange = (fieldName, value) => {
     setUpdatedUser({
       ...updatedUser,
       [fieldName]: value,
     });
+    setChangeField(true)
   };
+
+  if (loading) {
+    return (
+      <div>Loading...</div>
+    )
+  }
+
   return (
     <div className="data">
       <div className="recents container">
         <div className="header">
           <BiReceipt className='bx ' />
-          <h3>Settings</h3>
+          <h3>Cài đặt</h3>
         </div>
         <div className='settings-content'>
           {formFields.map((field, index) => (
@@ -106,6 +127,7 @@ const SettingUser = () => {
                 value={field.value || ''}
                 placeholder={field.placeholder || ''}
                 onChange={(e) => field.onChange(e.target.value)}
+                disabled={field.disabled}
               />
             </div>
           ))}

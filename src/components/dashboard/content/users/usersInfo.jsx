@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BiUser, BiReceipt, BiSearch, BiPlus, BiTrash, BiArrowToLeft, BiArrowToRight, BiEdit } from 'react-icons/bi';
+import { BiUser, BiReceipt, BiPlus, BiTrash, BiArrowToLeft, BiArrowToRight, BiEdit } from 'react-icons/bi';
 import { useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -20,18 +20,17 @@ export const UsersInfo = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
 
   const selfUserData = useSelector((state) => state.selfAction.user);
-
   useEffect(() => {
-    getAllUser();
+    if (selfUserData.id) {
+      getAllUser();
+    }
   }, [offset, limit, selfUserData]);
 
   const getAllUser = async () => {
     userServiceApi.getAllUser(offset, limit)
       .then((res) => {
         console.log(res)
-        console.log(selfUserData)
-        const filteredUserData = res.usersWithRoles.filter(user => user._id !== selfUserData._id);
-
+        const filteredUserData = res.items.filter(items => items.id !== selfUserData.id);
         setUserData(filteredUserData);
         setHasNextPage(filteredUserData.length === limit);
       }).catch((error) => {
@@ -43,7 +42,6 @@ export const UsersInfo = () => {
 
   const handleUserCreated = (newUser) => {
     toast.success('User created successfully');
-    console.log(newUser);
     setUserData((prevData) => [...prevData, newUser]);
     //Kiem tra xem tao moi co vuot qua gioi han trang hien tai khong
     if (userData.length + 1 > limit) {
@@ -59,7 +57,7 @@ export const UsersInfo = () => {
     toast.success('User updated successfully');
     setUserData((prevData) =>
       prevData.map((user) =>
-        user._id === updatedUser._id ? updatedUser : user,
+        user.id === updatedUser.id ? updatedUser : user,
       )
     );
   };
@@ -92,7 +90,6 @@ export const UsersInfo = () => {
   };
 
   const handleToggleCheckboxes = () => {
-    console.log(selectedUsers)
     setShowCheckboxes((prev) => !prev);
   };
 
@@ -147,50 +144,60 @@ export const UsersInfo = () => {
       <div className="recents container">
         <div className="header">
           <BiReceipt className='bx ' />
-          <h3>Recent</h3>
-          <BiPlus className='bx ' onClick={() => handleToggleUserForm()} />
-          <BiSearch className='bx ' />
-          <BiTrash className='bx ' onClick={handleToggleCheckboxes} />
+          <h3>DANH SÁCH NGƯỜI DÙNG</h3>
+          {/* <button className='btn' onClick={() => handleToggleUserForm()} >
+            <BiSearch className='bx ' />
+          </button> */}
+          <button className='btn' onClick={() => handleToggleUserForm()} >
+            <BiPlus className='bx ' />
+          </button>
+          <button className='btn' onClick={handleToggleCheckboxes} >
+            <BiTrash className='bx ' />
+          </button>
         </div>
         <table>
           <thead>
             <tr>
               {showCheckboxes && (
-                <th className='select'>Select</th>
+                <th className='w-5'>Chọn</th>
               )}
-              <th >User</th>
-              <th className='age'>Age</th>
-              <th className='gmail'>Email</th>
-              <th className='address'>Address</th>
-              <th className='action txt-right'>Action</th>
+              <th className='w-15'>Người dùng</th>
+              <th className='w-15'>Ngày sinh</th>
+              <th className='w-30'>Email</th>
+              <th className='w-10'>Giới tính</th>
+              <th className='w-10'>Chiều cao</th>
+              <th className='w-10'>Cân nặng</th>
+              <th className='w-10 txt-right'>Hành động</th>
             </tr>
           </thead>
           <tbody>
             {userData.map((user) => (
-              <tr key={user._id} >
+              <tr key={user.id} >
                 {showCheckboxes && (
                   <td className='td-select'>
                     <input
                       className='ck-box'
                       type="checkbox"
-                      checked={selectedUsers.includes(user._id)}
-                      onChange={() => handleUserCheckboxToggle(user._id)}
+                      checked={selectedUsers.includes(user.id)}
+                      onChange={() => handleUserCheckboxToggle(user.id)}
                     />
                   </td>
                 )}
                 <td className='td-user' >
                   <BiUser className='bx img' />
-                  <p>{user && user.name}</p>
+                  <p>{user && user.username}</p>
                 </td>
-                <td>{user && user.age}</td>
+                <td>{user && user.birthday}</td>
                 <td>{user && user.gmail}</td>
-                <td>{user && user.address}</td>
+                <td>{user && user.gender}</td>
+                <td>{user && user.height}</td>
+                <td>{user && user.weight}</td>
                 {/* <td><span className="status pending">Pending</span></td> */}
                 <td className='txt-right'>
                   <button className='btn' onClick={() => handleToggleUserForm(user)} >
                     <BiEdit className='bx' />
                   </button>
-                  <button className='btn' onClick={() => handleDeleteUser(user._id)} >
+                  <button className='btn' onClick={() => handleDeleteUser(user.id)} >
                     <BiTrash className='bx ' />
                   </button>
                 </td>

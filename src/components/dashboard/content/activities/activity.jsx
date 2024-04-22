@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { BiFilter, BiNote, BiPlus, BiArrowToLeft, BiArrowToRight } from 'react-icons/bi';
+import { BiNote, BiPlus, BiArrowToLeft, BiArrowToRight } from 'react-icons/bi';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { activitiesServiceApi } from '@/api/activities';
 import ActivityForm from './formActivity'
 import ConfirmDelete from '@/components/confirmDelete ';
-import ActivityItem from './ActivityItem';
+import ActivityItem from './activityItem';
 
 export const Activity = () => {
   const [activities, setActivities] = useState([]);
@@ -23,8 +23,9 @@ export const Activity = () => {
   const getAllActivities = async () => {
     activitiesServiceApi.getAllActivities(offset, limit)
       .then((res) => {
-        setActivities(res.activities);
-        setHasNextPage(res.activities.length === limit);
+        console.log(res)
+        setActivities(res.items);
+        setHasNextPage(res.items.length === limit);
       }).catch((error) => {
         console.error('Error fetching data:', error);
       }).finally(() => {
@@ -43,12 +44,10 @@ export const Activity = () => {
 
   const handleActivityUpdated = (updatedActivity) => {
     toast.success('Activity updated successfully');
-    console.log('updated Activity', updatedActivity)
     setActivities((prevData) => {
       const updatedData = prevData.map((activity) =>
-        activity._id === updatedActivity._id ? { ...activity, ...updatedActivity } : activity
+        activity.activityId === updatedActivity.activityId ? { ...activity, ...updatedActivity } : activity
       );
-      console.log('Updated data:', updatedData);
       return updatedData;
     });
   };
@@ -63,11 +62,11 @@ export const Activity = () => {
   };
 
   const confirmDelete = (activitiesID) => {
-    activitiesServiceApi.deleteActivities({ data: { idActivities: activitiesID } })
+    activitiesServiceApi.deleteActivities({ data: { activityId: activitiesID } })
       .then(res => {
         console.log(res);
         getAllActivities()
-
+        toast.dismiss();
       })
       .catch(err => {
         console.log(err);
@@ -103,8 +102,7 @@ export const Activity = () => {
     <div className="activities container recents">
       <div className="header">
         <BiNote className='bx ' />
-        <h3>Activities</h3>
-        <BiFilter className='bx ' />
+        <h3>HOẠT ĐỘNG</h3>
         <button onClick={() => handleToggleActivityForm()}>
           <BiPlus className='bx ' />
         </button>
@@ -112,16 +110,16 @@ export const Activity = () => {
       <table className="activities-table">
         <thead>
           <tr>
-            <th className='name'>Name</th>
-            <th className='description'>Description</th>
-            <th className='txt-right action'>Actions</th>
+            <th className='w-20'>Tên</th>
+            <th className='w-40'>Chi tiết</th>
+            <th className='txt-right w-15'>Hành động</th>
           </tr>
         </thead>
         <tbody>
           {activities.map((activity) => {
             return (
               <ActivityItem
-                key={activity._id}
+                key={activity.activityId}
                 activity={activity}
                 handleToggleActivityForm={handleToggleActivityForm}
                 handleDeleteActivities={handleDeleteActivities}

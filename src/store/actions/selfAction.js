@@ -4,11 +4,13 @@ export const selfAction = createSlice({
   name: 'self',
   initialState: {
     user: {
-      _id: "",
-      name: "",
-      address: "",
+      id: "",
+      username: "",
+      gender: "",
       gmail: "",
-      age: ""
+      birthday: "",
+      weight: "",
+      height: ""
     }
   },
   reducers: {

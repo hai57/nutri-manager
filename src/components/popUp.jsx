@@ -2,9 +2,11 @@
 import { BiX } from 'react-icons/bi';
 
 const Popup = ({ onClose, title, formFields, onAccept }) => {
+  const hasUserField = formFields.some(field => field.label === 'Email');
+
   return (
     <div className="popup-overlay">
-      <div className="popup activity">
+      <div className={`popup activity${hasUserField ? ' user' : ''}`}>
         <BiX onClick={onClose} className='bx end' />
         <div className="header">
           <h3>{title}</h3>
@@ -19,6 +21,15 @@ const Popup = ({ onClose, title, formFields, onAccept }) => {
                   <input
                     className='inp'
                     type="text"
+                    value={field.value || ''}
+                    placeholder={field.placeholder || ''}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
+                ) : null}
+                {field.type === 'password' ? (
+                  <input
+                    className='inp'
+                    type="password"
                     value={field.value || ''}
                     placeholder={field.placeholder || ''}
                     onChange={(e) => field.onChange(e.target.value)}
@@ -56,6 +67,16 @@ const Popup = ({ onClose, title, formFields, onAccept }) => {
                       </option>
                     ))}
                   </select>
+                ) : null}
+                {field.type === 'date' ? (
+                  <input
+                    className='inp'
+                    type="date"
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    max="9999-12-31"
+                    min="1000-01-01"
+                  />
                 ) : null}
               </div>
             ))}

@@ -1,8 +1,8 @@
 import { useLocation } from "react-router-dom";
 import { BiLogOutCircle, BiCog, BiGroup, BiListCheck } from "react-icons/bi";
 import { IoListOutline } from "react-icons/io5";
-import { Routing } from '@/utils/routing';
 
+import { Routing } from '@/utils/routing';
 import { storage } from "@/utils/storage";
 import { useSelector } from "react-redux";
 
@@ -11,16 +11,16 @@ import { useSelector } from "react-redux";
 
 export const SideBar = () => {
     const location = useLocation();
-    const idUser = useSelector((state) => state.selfAction.user._id)
+    const idUser = useSelector((state) => state.selfAction.user.id)
     const sidebarMenu = [
         { label: "User", path: Routing.users.path, name: "user", icon: <BiGroup className="bx" /> },
+        // { label: "Schedule", path: Routing.schedules.path, name: "schedules", icon: <AiOutlineSchedule className="bx" /> },
         { label: "Activity", path: Routing.activities.path, name: "activity", icon: <BiListCheck className="bx" /> },
         { label: "Sub Activity", path: Routing.subActivities.path, name: "subActivity", icon: <BiListCheck className="bx" /> },
         { label: "Settings", path: `${Routing.settings.path}/${idUser}`, name: "settings", icon: <BiCog className="bx" /> },
     ]
     const handleLogout = () => {
-        storage.remove('token');
-        storage.remove('userId')
+        storage.remove('token')
 
     };
 
@@ -34,7 +34,7 @@ export const SideBar = () => {
                 <i className='bx bx-code-alt'></i>
                 <div className="logo-name">
                     <span><IoListOutline className="bx" /></span>
-                    Productive
+                    Healthy
                 </div>
             </a>
             <ul className="side-menu">
@@ -51,7 +51,7 @@ export const SideBar = () => {
             </ul>
             <ul className="side-menu bottom">
                 <li>
-                    <a href="/login" className="logout" onClick={handleLogout}>
+                    <a href={`${Routing.login.path}`} className="logout" onClick={handleLogout}>
                         <BiLogOutCircle className="bx"></BiLogOutCircle>
                         Logout
                     </a>

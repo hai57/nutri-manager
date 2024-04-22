@@ -13,7 +13,7 @@ authServicePrivate.interceptors.request.use(onRequestFulfilled, onRequestRejecte
 authServicePrivate.interceptors.response.use(onFulfilled, onRejected)
 
 export const authServiceApi = {
-  login: (p) => authServicePublic.post('/user/login', p),
+  login: (p) => authServicePublic.post('/user/loginAdmin', p),
   register: (p) => authServicePublic.post('/user/register', p),
   checkToken: () => authServicePrivate.get('/user/checkToken'),
 }

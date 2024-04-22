@@ -95,6 +95,18 @@
       border-radius: 50%;
     }
 
+    .profile-wrapper {
+      a {
+        display: inline-flex;
+        align-items: center;
+
+        span {
+          margin-left: 15px;
+          color: var(--primary);
+        }
+      }
+    }
+
     .theme-toggle {
       display: block;
       min-width: 50px;

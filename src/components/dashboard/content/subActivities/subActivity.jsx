@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 
 import { activitiesServiceApi } from '@/api/activities';
-import SubActivityItem from './SubActivityItem';
+import SubActivityItem from './subActivityItem';
 import ConfirmDelete from '@/components/confirmDelete ';
 import SubActivityForm from './formSubActivity';
 
@@ -28,8 +28,8 @@ export const SubActivity = () => {
     activitiesServiceApi.getSubActivitiesByIdActivity(id, offset, limit)
       .then((res) => {
         console.log(res)
-        setSubActivities(res.subActivities);
-        setHasNextPage(res.subActivities.length === limit);
+        setSubActivities(res.items);
+        setHasNextPage(res.items.length === limit);
       }).catch((error) => {
         console.error('Error fetching data:', error);
       }).finally(() => {
@@ -40,7 +40,6 @@ export const SubActivity = () => {
   const getActivityById = () => {
     activitiesServiceApi.getActivityById(id)
       .then((res) => {
-        console.log(res.activity)
         setActivity(res.activity)
       }).catch((error) => {
         console.error('Error fetching activity by ID:', error);
@@ -50,8 +49,7 @@ export const SubActivity = () => {
   };
 
   const handleSubActivityCreated = (subActivity) => {
-    toast.success('Activity created successfully');
-    console.log('sub', subActivity)
+    toast.success('Subactivity created successfully');
     setSubActivities((prevData) => [...prevData, subActivity]);
     if (subActivities.length + 1 > limit) {
       setOffset((prevOffset) => prevOffset + limit);
@@ -60,13 +58,11 @@ export const SubActivity = () => {
   };
 
   const handleSubActivityUpdated = (updatedSubActivity) => {
-    toast.success('Activity updated successfully');
-    console.log('updated Activity', updatedSubActivity)
+    toast.success('Subactivity updated successfully');
     setSubActivities((prevData) => {
       const updatedData = prevData.map((subActivity) =>
-        subActivity._id === updatedSubActivity._id ? { ...subActivity, ...updatedSubActivity } : subActivity
+        subActivity.subActivityId === updatedSubActivity.subActivityId ? { ...subActivity, ...updatedSubActivity } : subActivity
       );
-      console.log('Updated data:', updatedData);
       return updatedData;
     });
   };
@@ -81,11 +77,11 @@ export const SubActivity = () => {
   };
 
   const confirmDelete = (subActivitiesID) => {
-    activitiesServiceApi.deleteSubActivities({ data: { subActivitiesID: subActivitiesID } })
+    activitiesServiceApi.deleteSubActivities({ data: { subActivitiesId: subActivitiesID } })
       .then(res => {
         console.log(res);
         getSubActivities()
-
+        toast.dismiss();
       })
       .catch(err => {
         console.log(err);
@@ -125,8 +121,8 @@ export const SubActivity = () => {
       <div className="header">
         <BiNote className='bx ' />
         <h3>
-          Sub Activities Of
-          <span className="capitalize"> {activity.name}</span>
+          HOẠT ĐỘNG PHỤ CỦA
+          <span className="capitalize"> {activity.activityName}</span>
         </h3>
         <button onClick={() => handleToggleSubActivityForm()}>
           <BiPlus className='bx ' />
@@ -135,17 +131,17 @@ export const SubActivity = () => {
       <table className="activities-table">
         <thead>
           <tr>
-            <th className='name'>Name</th>
-            <th className='amount'>Amount</th>
-            <th className='unit'>Unit</th>
-            <th className='txt-right action'>Actions</th>
+            <th className='w-20'>Tên</th>
+            <th className='w-20'>Lượng calories</th>
+            <th className='w-20'>Đơn vị đo</th>
+            <th className='txt-right w-10'>Hành động</th>
           </tr>
         </thead>
         <tbody>
           {subActivities.map((subActivity) => {
             return (
               <SubActivityItem
-                key={subActivity._id}
+                key={subActivity.subActivityId}
                 subActivity={subActivity}
                 handleDeleteSubActivities={handleDeleteSubActivities}
                 handleToggleSubActivityForm={handleToggleSubActivityForm}

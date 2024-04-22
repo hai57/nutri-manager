@@ -9,15 +9,15 @@ activitiesServicePrivate.interceptors.request.use(onRequestFulfilled, onRequestR
 activitiesServicePrivate.interceptors.response.use(onFulfilled, onRejected)
 
 export const activitiesServiceApi = {
-  getAllActivities: (offset, limit) => activitiesServicePrivate.get(`/activities/getAllActivities?offset=${offset}&limit=${limit}`),
-  getActivityById: (p) => activitiesServicePrivate.get(`/activities/getActivityById/${p}`),
-  createActivities: (p) => activitiesServicePrivate.post('/activities/createActivities', p),
-  updateActivities: (p) => activitiesServicePrivate.put('/activities/updateActivities', p),
-  deleteActivities: (p) => activitiesServicePrivate.delete('/activities/deleteActivities', p),
+  getAllActivities: (offset, limit) => activitiesServicePrivate.get(`/activities/get-all-activities?offset=${offset}&limit=${limit}`),
+  getActivityById: (p) => activitiesServicePrivate.get(`/activities/get-activity-by-id/${p}`),
+  createActivities: (p) => activitiesServicePrivate.post('/activities/create-activities', p),
+  updateActivities: (p) => activitiesServicePrivate.put('/activities/update-activities', p),
+  deleteActivities: (p) => activitiesServicePrivate.delete('/activities/delete-activities', p),
 
-  getSubActivities: (offset, limit) => activitiesServicePrivate.get(`/activities/getSubActivities?offset=${offset}&limit=${limit}`),
-  getSubActivitiesByIdActivity: (p, offset, limit) => activitiesServicePrivate.get(`/activities/getSubActivitiesByIdActivity/${p}?offset=${offset}&limit=${limit}`),
-  createSubActivities: (p) => activitiesServicePrivate.post('/activities/createSubActivities', p),
-  updateSubActivities: (p) => activitiesServicePrivate.put('/activities/updateSubActivities', p),
-  deleteSubActivities: (p) => activitiesServicePrivate.delete('/activities/deleteSubActivities', p),
+  getSubActivities: (offset, limit) => activitiesServicePrivate.get(`/activities/get-subactivities?offset=${offset}&limit=${limit}`),
+  getSubActivitiesByIdActivity: (p, offset, limit) => activitiesServicePrivate.get(`/activities/get-subactivities-by-id-activity/${p}?offset=${offset}&limit=${limit}`),
+  createSubActivities: (p) => activitiesServicePrivate.post('/activities/create-subactivities', p),
+  updateSubActivities: (p) => activitiesServicePrivate.put('/activities/update-subactivities', p),
+  deleteSubActivities: (p) => activitiesServicePrivate.delete('/activities/delete-subactivities', p),
 }
